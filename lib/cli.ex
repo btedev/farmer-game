@@ -32,11 +32,11 @@ defmodule FarmerGame.CLI do
     end
   end
 
-	defp parse_args(args) do
-		{_, words, _} =
-			args
-			|> OptionParser.parse(switches: [upcase: :boolean])
+  defp parse_args(args) do
+    {_, words, _} =
+      args
+      |> OptionParser.parse(switches: [upcase: :boolean])
 
     Enum.at(words, 0)
-	end
+  end
 end
