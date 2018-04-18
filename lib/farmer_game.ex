@@ -20,16 +20,32 @@ defmodule FarmerGame do
 
   # End states with illegal moves.
   def play(state={"cd", _}, _), do: {:eaten, formatted_state(state)}
+  def play(state={"dc", _}, _), do: {:eaten, formatted_state(state)}
   def play(state={_, "cd"}, _), do: {:eaten, formatted_state(state)}
+  def play(state={_, "dc"}, _), do: {:eaten, formatted_state(state)}
   def play(state={"cg", _}, _), do: {:eaten, formatted_state(state)}
+  def play(state={"gc", _}, _), do: {:eaten, formatted_state(state)}
   def play(state={_, "cg"}, _), do: {:eaten, formatted_state(state)}
+  def play(state={_, "gc"}, _), do: {:eaten, formatted_state(state)}
 
   def play(state, [movement|t]) do
     new_state = move(state, movement)
     play(new_state, t)
   end
 
-  def formatted_state({left, right}), do: left <> "~" <> right
+  def formatted_state({left, right}) do
+    f_first(left) <> "~" <> f_first(right)
+  end
+
+  # Output always order the farmer first.
+  def f_first(string) do
+    case String.contains?(string, "f") do
+      true ->
+        "f" <> String.replace(string, "f", "")
+      false ->
+        string
+    end
+  end
 
   # Perform move for all other movements.
   def move(game_state, movement) do
@@ -69,15 +85,9 @@ defmodule FarmerGame do
     end)
   end
 
-  def remove_char(string, char) do
-    String.replace(string, char, "")
-    |> sort_string
-  end
+  def remove_char(string, char), do: String.replace(string, char, "")
 
-  def add_char(string, char) do
-    string <> char
-    |> sort_string
-  end
+  def add_char(string, char), do: string <> char
 
   def sort_string(s) do
     String.graphemes(s)
