@@ -7,10 +7,9 @@ defmodule FarmerGame.CLI do
     input = File.read!(filename)
             |> String.trim
             |> String.replace("\n", " ")
+            |> String.split(" ")
 
-    {result, output} = input
-                       |> String.split(" ")
-                       |> FarmerGame.play
+    {result, output} = FarmerGame.play(input)
 
     IO.puts(output)
 
