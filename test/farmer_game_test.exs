@@ -33,7 +33,7 @@ defmodule FarmerGameTest do
   test "sample 2" do
     input = "fdcg~ fc> <f fg> <f" |> String.split(" ")
     result = play(input)
-    assert result = {:eaten, "fd~cg"}
+    assert result == {:eaten, "fd~cg"}
   end
 
   test "winning moves" do

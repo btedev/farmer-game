@@ -15,9 +15,6 @@ defmodule FarmerGame do
     play(init_state, t)
   end
 
-  # End state without illegal moves.
-  def play(state, []),  do: {:ok, formatted_state(state)}
-
   # End states with illegal moves.
   def play(state={"cd", _}, _), do: {:eaten, formatted_state(state)}
   def play(state={"dc", _}, _), do: {:eaten, formatted_state(state)}
@@ -27,6 +24,9 @@ defmodule FarmerGame do
   def play(state={"gc", _}, _), do: {:eaten, formatted_state(state)}
   def play(state={_, "cg"}, _), do: {:eaten, formatted_state(state)}
   def play(state={_, "gc"}, _), do: {:eaten, formatted_state(state)}
+
+  # End state without illegal moves.
+  def play(state, []),  do: {:ok, formatted_state(state)}
 
   def play(state, [movement|t]) do
     new_state = move(state, movement)
