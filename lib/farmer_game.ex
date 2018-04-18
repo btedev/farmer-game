@@ -88,11 +88,5 @@ defmodule FarmerGame do
   def remove_char(string, char), do: String.replace(string, char, "")
 
   def add_char(string, char), do: string <> char
-
-  def sort_string(s) do
-    String.graphemes(s)
-    |> Enum.sort
-    |> Enum.join
-  end
 end
 
